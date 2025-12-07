@@ -318,21 +318,22 @@
           <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
         </div>
 
-        <!-- Orbiter -->
-        <main class="w-full h-full flex items-center justify-center relative overflow-hidden">
+        <!-- Orbiter Container -->
+        <main class="w-full h-full flex items-center justify-center relative overflow-hidden py-10 md:py-0">
             
             <div class="absolute inset-0 opacity-0 pointer-events-none">
                 <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, #374151 0%, transparent 50%), radial-gradient(circle at 75% 75%, #4B5563 0%, transparent 50%);"></div>
             </div>
 
+            <!-- Responsive Width/Height handled in CSS/Tailwind, Radius in JS -->
             <div id="orbit-container" class="relative w-[calc(100vw-40px)] h-[calc(100vw-40px)] md:w-[450px] md:h-[450px] flex items-center justify-center">
                 
-                <div class="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center z-10 relative shadow-2xl">
+                <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center z-10 relative shadow-2xl">
                     <div class="absolute inset-0 rounded-full bg-cyan-500/30 blur-xl animate-pulse"></div>
                     <div class="absolute inset-0 rounded-full bg-purple-500/20 blur-2xl animate-pulse" style="animation-delay: 1s;"></div>
                     
                     <div class="relative z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-9 md:h-9" viewBox="0 0 24 24" fill="none" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <defs>
                                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#06B6D4" />
@@ -352,7 +353,7 @@
             </div>
         </main>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
           <!-- Card 1 -->
           <div
             class="bg-card p-8 rounded-2xl border border-slate-800 hover:border-primary/50 transition-all hover:transform hover:-translate-y-2 group reveal"
@@ -1010,29 +1011,43 @@
         }
       });
 
-      // --- Configuration ---
-        const skillsConfig = [
+      // --- ORBITER ANIMATION & LOGIC ---
+      
+      // Determine if we are on a small screen
+      function getResponsiveConfig() {
+          const isMobile = window.innerWidth < 768; // Tailwind md breakpoint
+          return {
+              innerRadius: isMobile ? 65 : 100, // Reduced from 100 for mobile
+              outerRadius: isMobile ? 115 : 180, // Reduced from 180 for mobile
+              innerSize: isMobile ? 35 : 45,     // Reduced icon size
+              outerSize: isMobile ? 35 : 45      // Reduced icon size
+          };
+      }
+
+      const { innerRadius, outerRadius, innerSize, outerSize } = getResponsiveConfig();
+
+      const skillsConfig = [
             // Inner Orbit (Foundations)
-            { id: 'python', orbitRadius: 100, size: 45, speed: 1, iconType: 'python', phaseShift: 0, glowColor: 'cyan', label: 'Python' },
-            { id: 'html', orbitRadius: 100, size: 40, speed: 1, iconType: 'html', phaseShift: (2 * Math.PI) / 3, glowColor: 'cyan', label: 'Power BI' },
-            { id: 'sql', orbitRadius: 100, size: 40, speed: 1, iconType: 'sql', phaseShift: (4 * Math.PI) / 3, glowColor: 'cyan', label: 'SQL' },
+            { id: 'python', orbitRadius: innerRadius, size: innerSize, speed: 1, iconType: 'python', phaseShift: 0, glowColor: 'cyan', label: 'Python' },
+            { id: 'html', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'html', phaseShift: (2 * Math.PI) / 3, glowColor: 'cyan', label: 'Power BI' },
+            { id: 'sql', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'sql', phaseShift: (4 * Math.PI) / 3, glowColor: 'cyan', label: 'SQL' },
             
             // Outer Orbit (AI Frameworks)
-            { id: 'pytorch', orbitRadius: 180, size: 45, speed: -0.6, iconType: 'pytorch', phaseShift: 0, glowColor: 'purple', label: 'PyTorch' },
-            { id: 'sklearn', orbitRadius: 180, size: 45, speed: -0.6, iconType: 'sklearn', phaseShift: (2 * Math.PI) / 3, glowColor: 'purple', label: 'Scikit Learn' },
-            { id: 'keras', orbitRadius: 180, size: 45, speed: -0.6, iconType: 'keras', phaseShift: (4 * Math.PI) / 3, glowColor: 'purple', label: 'Keras' },
+            { id: 'pytorch', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'pytorch', phaseShift: 0, glowColor: 'purple', label: 'PyTorch' },
+            { id: 'sklearn', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'sklearn', phaseShift: (2 * Math.PI) / 3, glowColor: 'purple', label: 'Scikit Learn' },
+            { id: 'keras', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'keras', phaseShift: (4 * Math.PI) / 3, glowColor: 'purple', label: 'Keras' },
         ];
 
         const orbitPathsConfig = [
-            { radius: 100, glowColor: 'cyan', delay: 0 },
-            { radius: 180, glowColor: 'purple', delay: 1.5 }
+            { radius: innerRadius, glowColor: 'cyan', delay: 0 },
+            { radius: outerRadius, glowColor: 'purple', delay: 1.5 }
         ];
 
         // --- SVG Icons Data ---
         const icons = {
             python: { 
                 color: '#306998', 
-                svg: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0164 2C10.8193 2 9.03825 3.72453 9.03825 5.85185V8.51852H15.9235V9.25926H5.97814C3.78107 9.25926 2 10.9838 2 13.1111L2 18.8889C2 21.0162 3.78107 22.7407 5.97814 22.7407H8.27322V19.4815C8.27322 17.3542 10.0543 15.6296 12.2514 15.6296H19.5956C21.4547 15.6296 22.9617 14.1704 22.9617 12.3704V5.85185C22.9617 3.72453 21.1807 2 18.9836 2H13.0164ZM12.0984 6.74074C12.8589 6.74074 13.4754 6.14378 13.4754 5.40741C13.4754 4.67103 12.8589 4.07407 12.0984 4.07407C11.3378 4.07407 10.7213 4.67103 10.7213 5.40741C10.7213 6.14378 11.3378 6.74074 12.0984 6.74074Z" fill="url(#paint0_linear_87_8204)"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9834 30C21.1805 30 22.9616 28.2755 22.9616 26.1482V23.4815L16.0763 23.4815L16.0763 22.7408L26.0217 22.7408C28.2188 22.7408 29.9998 21.0162 29.9998 18.8889V13.1111C29.9998 10.9838 28.2188 9.25928 26.0217 9.25928L23.7266 9.25928V12.5185C23.7266 14.6459 21.9455 16.3704 19.7485 16.3704L12.4042 16.3704C10.5451 16.3704 9.03809 17.8296 9.03809 19.6296L9.03809 26.1482C9.03809 28.2755 10.8192 30 13.0162 30H18.9834ZM19.9015 25.2593C19.1409 25.2593 18.5244 25.8562 18.5244 26.5926C18.5244 27.329 19.1409 27.9259 19.9015 27.9259C20.662 27.9259 21.2785 27.329 21.2785 26.5926C21.2785 25.8562 20.662 25.2593 19.9015 25.2593Z" fill="url(#paint1_linear_87_8204)"></path> <defs> <linearGradient id="paint0_linear_87_8204" x1="12.4809" y1="2" x2="12.4809" y2="22.7407" gradientUnits="userSpaceOnUse"> <stop stop-color="#327EBD"></stop> <stop offset="1" stop-color="#1565A7"></stop> </linearGradient> <linearGradient id="paint1_linear_87_8204" x1="19.519" y1="9.25928" x2="19.519" y2="30" gradientUnits="userSpaceOnUse"> <stop stop-color="#FFDA4B"></stop> <stop offset="1" stop-color="#F9C600"></stop> </linearGradient> </defs> </g></svg>' 
+                svg: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0164 2C10.8193 2 9.03825 3.72453 9.03825 5.85185V8.51852H15.9235V9.25926H5.97814C3.78107 9.25926 2 10.9838 2 13.1111L2 18.8889C2 21.0162 3.78107 22.7407 5.97814 22.7407H8.27322V19.4815C8.27322 17.3542 10.0543 15.6296 12.2514 15.6296H19.5956C21.4547 15.6296 22.9617 14.1704 22.9617 12.3704V5.85185C22.9617 3.72453 21.1807 2 18.9836 2H13.0164ZM12.0984 6.74074C12.8589 6.74074 13.4754 6.14378 13.4754 5.40741C13.4754 4.67103 12.8589 4.07407 12.0984 4.07407C11.3378 4.07407 10.7213 4.67103 10.7213 5.40741C10.7213 6.14378 11.3378 6.74074 12.0984 6.74074Z" fill="url(#paint0_linear_87_8204)"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9834 30C21.1805 30 22.9616 28.2755 22.9616 26.1482V23.4815L16.0763 23.4815L16.0763 22.7408L26.0217 22.7408C28.2188 22.7408 29.9998 21.0162 29.9998 18.8889V13.1111C29.9998 10.9838 28.2188 9.25928 26.0217 9.25928L23.7266 9.25928V12.5185C23.7266 14.6459 21.9455 16.3704 19.7485 16.3704L12.4042 16.3704C10.5451 16.3704 9.03809 17.8296 9.03809 19.6296L9.03809 26.1482C9.03809 28.2755 10.8192 30 13.0162 30H18.9834ZM19.9015 25.2593C19.1409 25.2593 18.5244 25.8562 18.5244 26.5926C18.5244 27.329 19.1409 27.9259 19.9015 27.9259C20.662 27.9259 21.2785 27.329 21.2785 26.5926C21.2785 25.8562 20.662 25.2593 19.9015 25.2593Z" fill="url(#paint0_linear_87_8204)"></path> <defs> <linearGradient id="paint0_linear_87_8204" x1="12.4809" y1="2" x2="12.4809" y2="22.7407" gradientUnits="userSpaceOnUse"> <stop stop-color="#327EBD"></stop> <stop offset="1" stop-color="#1565A7"></stop> </linearGradient> <linearGradient id="paint1_linear_87_8204" x1="19.519" y1="9.25928" x2="19.519" y2="30" gradientUnits="userSpaceOnUse"> <stop stop-color="#FFDA4B"></stop> <stop offset="1" stop-color="#F9C600"></stop> </linearGradient> </defs> </g></svg>' 
             },
             html: {
                 color: '#E34F26',
@@ -1066,61 +1081,91 @@
         const pathsLayer = document.getElementById('paths-layer');
         const skillsLayer = document.getElementById('skills-layer');
 
-        // --- Render Paths ---
-        orbitPathsConfig.forEach(config => {
-            const colors = glowColors[config.glowColor];
-            const div = document.createElement('div');
-            div.className = "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none";
-            div.style.width = `${config.radius * 2}px`;
-            div.style.height = `${config.radius * 2}px`;
-            
-            const inner = document.createElement('div');
-            inner.className = "absolute inset-0 rounded-full";
-            inner.style.background = `radial-gradient(circle, transparent 30%, ${colors.secondary} 70%, ${colors.primary} 100%)`;
-            inner.style.boxShadow = `0 0 60px ${colors.primary}, inset 0 0 60px ${colors.secondary}`;
-            inner.style.animation = `pulse-ring 4s ease-in-out infinite`;
-            inner.style.animationDelay = `${config.delay}s`;
-            
-            const border = document.createElement('div');
-            border.className = "absolute inset-0 rounded-full";
-            border.style.border = `1px solid ${colors.border}`;
-            border.style.boxShadow = `inset 0 0 20px ${colors.secondary}`;
+        // Function to initialize or re-initialize the orbiter
+        function initOrbiter() {
+            // Clear existing elements
+            pathsLayer.innerHTML = '';
+            skillsLayer.innerHTML = '';
 
-            div.appendChild(inner);
-            div.appendChild(border);
-            pathsLayer.appendChild(div);
-        });
+            const { innerRadius, outerRadius, innerSize, outerSize } = getResponsiveConfig();
 
-        // --- Initialize Skills ---
-        const activeSkills = skillsConfig.map(config => {
-            const el = document.createElement('div');
-            el.className = "skill-item";
-            el.style.width = `${config.size}px`;
-            el.style.height = `${config.size}px`;
-            
-            const iconData = icons[config.iconType];
-            const inner = document.createElement('div');
-            inner.className = "skill-inner relative w-full h-full p-2 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl text-white";
-            
-            inner.innerHTML = iconData.svg;
+            // Rebuild configuration with current responsive values
+            const currentOrbitPathsConfig = [
+                { radius: innerRadius, glowColor: 'cyan', delay: 0 },
+                { radius: outerRadius, glowColor: 'purple', delay: 1.5 }
+            ];
 
-            inner.addEventListener('mouseenter', () => {
-                inner.style.boxShadow = `0 0 30px ${iconData.color}40, 0 0 60px ${iconData.color}20`;
+             const currentSkillsConfig = [
+                // Inner Orbit
+                { id: 'python', orbitRadius: innerRadius, size: innerSize, speed: 1, iconType: 'python', phaseShift: 0, glowColor: 'cyan', label: 'Python' },
+                { id: 'html', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'html', phaseShift: (2 * Math.PI) / 3, glowColor: 'cyan', label: 'Power BI' },
+                { id: 'sql', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'sql', phaseShift: (4 * Math.PI) / 3, glowColor: 'cyan', label: 'SQL' },
+                
+                // Outer Orbit
+                { id: 'pytorch', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'pytorch', phaseShift: 0, glowColor: 'purple', label: 'PyTorch' },
+                { id: 'sklearn', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'sklearn', phaseShift: (2 * Math.PI) / 3, glowColor: 'purple', label: 'Scikit Learn' },
+                { id: 'keras', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'keras', phaseShift: (4 * Math.PI) / 3, glowColor: 'purple', label: 'Keras' },
+            ];
+
+            // --- Render Paths ---
+            currentOrbitPathsConfig.forEach(config => {
+                const colors = glowColors[config.glowColor];
+                const div = document.createElement('div');
+                div.className = "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none";
+                div.style.width = `${config.radius * 2}px`;
+                div.style.height = `${config.radius * 2}px`;
+                
+                const inner = document.createElement('div');
+                inner.className = "absolute inset-0 rounded-full";
+                inner.style.background = `radial-gradient(circle, transparent 30%, ${colors.secondary} 70%, ${colors.primary} 100%)`;
+                inner.style.boxShadow = `0 0 60px ${colors.primary}, inset 0 0 60px ${colors.secondary}`;
+                inner.style.animation = `pulse-ring 4s ease-in-out infinite`;
+                inner.style.animationDelay = `${config.delay}s`;
+                
+                const border = document.createElement('div');
+                border.className = "absolute inset-0 rounded-full";
+                border.style.border = `1px solid ${colors.border}`;
+                border.style.boxShadow = `inset 0 0 20px ${colors.secondary}`;
+
+                div.appendChild(inner);
+                div.appendChild(border);
+                pathsLayer.appendChild(div);
             });
-            inner.addEventListener('mouseleave', () => {
-                inner.style.boxShadow = '';
+
+            // --- Initialize Skills ---
+            activeSkills = currentSkillsConfig.map(config => {
+                const el = document.createElement('div');
+                el.className = "skill-item";
+                el.style.width = `${config.size}px`;
+                el.style.height = `${config.size}px`;
+                
+                const iconData = icons[config.iconType];
+                const inner = document.createElement('div');
+                inner.className = "skill-inner relative w-full h-full p-2 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl text-white";
+                
+                inner.innerHTML = iconData.svg;
+
+                inner.addEventListener('mouseenter', () => {
+                    inner.style.boxShadow = `0 0 30px ${iconData.color}40, 0 0 60px ${iconData.color}20`;
+                });
+                inner.addEventListener('mouseleave', () => {
+                    inner.style.boxShadow = '';
+                });
+
+                const tooltip = document.createElement('div');
+                tooltip.className = "tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900/95 backdrop-blur-sm rounded text-xs text-white whitespace-nowrap pointer-events-none opacity-0 transition-opacity duration-300 z-50";
+                tooltip.innerText = config.label;
+                inner.appendChild(tooltip);
+
+                el.appendChild(inner);
+                skillsLayer.appendChild(el);
+
+                return { el, config };
             });
+        }
 
-            const tooltip = document.createElement('div');
-            tooltip.className = "tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900/95 backdrop-blur-sm rounded text-xs text-white whitespace-nowrap pointer-events-none opacity-0 transition-opacity duration-300 z-50";
-            tooltip.innerText = config.label;
-            inner.appendChild(tooltip);
-
-            el.appendChild(inner);
-            skillsLayer.appendChild(el);
-
-            return { el, config };
-        });
+        // Variable to store active skills for animation loop
+        let activeSkills = [];
 
         // --- Animation Loop ---
         let time = 0;
@@ -1134,7 +1179,7 @@
             const deltaTime = (currentTime - lastTime) / 1000;
             lastTime = currentTime;
 
-            if (!isPaused) {
+            if (!isPaused && activeSkills.length > 0) {
                 time += deltaTime;
 
                 activeSkills.forEach(item => {
@@ -1149,7 +1194,16 @@
             requestAnimationFrame(animate);
         }
 
+        // Initialize and Start
+        initOrbiter();
         requestAnimationFrame(animate);
+
+        // Handle Window Resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(initOrbiter, 200);
+        });
 
     </script>
   </body>
