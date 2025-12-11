@@ -95,8 +95,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transition: transform 0.1s linear, z-index 0s;
+          transition: transform 0.1s linear, z-index 0s;
             will-change: transform;
+          transform: translate(-50%, -50%);
         }
         .skill-inner:hover {
             transform: scale(1.25);
@@ -108,6 +109,22 @@
         @keyframes pulse-ring {
             0%, 100% { opacity: 0.4; transform: scale(1); }
             50% { opacity: 0.2; transform: scale(1.05); }
+        }
+
+        /* Orbiter container sizing tuned for small screens */
+        #orbit-container {
+          width: min(420px, 92vw);
+          height: min(420px, 92vw);
+          min-width: 260px;
+          min-height: 260px;
+          margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+          #orbit-container {
+            width: 450px;
+            height: 450px;
+          }
         }
     </style>
   </head>
@@ -333,7 +350,7 @@
             </div>
 
             <!-- Responsive Width/Height handled in CSS/Tailwind, Radius in JS -->
-            <div id="orbit-container" class="relative w-[calc(100vw-40px)] h-[calc(100vw-40px)] md:w-[450px] md:h-[450px] flex items-center justify-center">
+            <div id="orbit-container" class="relative flex items-center justify-center">
                 
                 <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center z-10 relative shadow-2xl">
                     <div class="absolute inset-0 rounded-full bg-cyan-500/30 blur-xl animate-pulse"></div>
@@ -1013,40 +1030,36 @@
       // --- ORBITER ANIMATION & LOGIC ---
       
       // Determine if we are on a small screen
-      function getResponsiveConfig() {
+        function getResponsiveConfig() {
           const isMobile = window.innerWidth < 768; // Tailwind md breakpoint
+          const size = Math.max(
+            240,
+            Math.min(
+              container?.clientWidth || 320,
+              container?.clientHeight || 320,
+              480
+            )
+          );
+
+          const half = size / 2;
+          const innerRadius = Math.max(60, half * (isMobile ? 0.42 : 0.5));
+          const outerRadius = Math.max(innerRadius + 30, half * (isMobile ? 0.7 : 0.78));
+            const baseIcon = size * (isMobile ? 0.16 : 0.18);
+            const iconSize = Math.max(32, Math.min(48, baseIcon * 0.55));
+
           return {
-              innerRadius: isMobile ? 65 : 100, // Reduced from 100 for mobile
-              outerRadius: isMobile ? 115 : 180, // Reduced from 180 for mobile
-              innerSize: isMobile ? 35 : 45,     // Reduced icon size
-              outerSize: isMobile ? 35 : 45      // Reduced icon size
+            innerRadius,
+            outerRadius,
+              innerSize: iconSize,
+              outerSize: iconSize
           };
-      }
-
-      const { innerRadius, outerRadius, innerSize, outerSize } = getResponsiveConfig();
-
-      const skillsConfig = [
-            // Inner Orbit (Foundations)
-            { id: 'python', orbitRadius: innerRadius, size: innerSize, speed: 1, iconType: 'python', phaseShift: 0, glowColor: 'cyan', label: 'Python' },
-            { id: 'html', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'html', phaseShift: (2 * Math.PI) / 3, glowColor: 'cyan', label: 'Power BI' },
-            { id: 'sql', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'sql', phaseShift: (4 * Math.PI) / 3, glowColor: 'cyan', label: 'SQL' },
-            
-            // Outer Orbit (AI Frameworks)
-            { id: 'pytorch', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'pytorch', phaseShift: 0, glowColor: 'purple', label: 'PyTorch' },
-            { id: 'sklearn', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'sklearn', phaseShift: (2 * Math.PI) / 3, glowColor: 'purple', label: 'Scikit Learn' },
-            { id: 'keras', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'keras', phaseShift: (4 * Math.PI) / 3, glowColor: 'purple', label: 'Keras' },
-        ];
-
-        const orbitPathsConfig = [
-            { radius: innerRadius, glowColor: 'cyan', delay: 0 },
-            { radius: outerRadius, glowColor: 'purple', delay: 1.5 }
-        ];
+        }
 
         // --- SVG Icons Data ---
         const icons = {
             python: { 
                 color: '#306998', 
-                svg: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0164 2C10.8193 2 9.03825 3.72453 9.03825 5.85185V8.51852H15.9235V9.25926H5.97814C3.78107 9.25926 2 10.9838 2 13.1111L2 18.8889C2 21.0162 3.78107 22.7407 5.97814 22.7407H8.27322V19.4815C8.27322 17.3542 10.0543 15.6296 12.2514 15.6296H19.5956C21.4547 15.6296 22.9617 14.1704 22.9617 12.3704V5.85185C22.9617 3.72453 21.1807 2 18.9836 2H13.0164ZM12.0984 6.74074C12.8589 6.74074 13.4754 6.14378 13.4754 5.40741C13.4754 4.67103 12.8589 4.07407 12.0984 4.07407C11.3378 4.07407 10.7213 4.67103 10.7213 5.40741C10.7213 6.14378 11.3378 6.74074 12.0984 6.74074Z" fill="url(#paint0_linear_87_8204)"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9834 30C21.1805 30 22.9616 28.2755 22.9616 26.1482V23.4815L16.0763 23.4815L16.0763 22.7408L26.0217 22.7408C28.2188 22.7408 29.9998 21.0162 29.9998 18.8889V13.1111C29.9998 10.9838 28.2188 9.25928 26.0217 9.25928L23.7266 9.25928V12.5185C23.7266 14.6459 21.9455 16.3704 19.7485 16.3704L12.4042 16.3704C10.5451 16.3704 9.03809 17.8296 9.03809 19.6296L9.03809 26.1482C9.03809 28.2755 10.8192 30 13.0162 30H18.9834ZM19.9015 25.2593C19.1409 25.2593 18.5244 25.8562 18.5244 26.5926C18.5244 27.329 19.1409 27.9259 19.9015 27.9259C20.662 27.9259 21.2785 27.329 21.2785 26.5926C21.2785 25.8562 20.662 25.2593 19.9015 25.2593Z" fill="url(#paint0_linear_87_8204)"></path> <defs> <linearGradient id="paint0_linear_87_8204" x1="12.4809" y1="2" x2="12.4809" y2="22.7407" gradientUnits="userSpaceOnUse"> <stop stop-color="#327EBD"></stop> <stop offset="1" stop-color="#1565A7"></stop> </linearGradient> <linearGradient id="paint1_linear_87_8204" x1="19.519" y1="9.25928" x2="19.519" y2="30" gradientUnits="userSpaceOnUse"> <stop stop-color="#FFDA4B"></stop> <stop offset="1" stop-color="#F9C600"></stop> </linearGradient> </defs> </g></svg>' 
+                svg: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0164 2C10.8193 2 9.03825 3.72453 9.03825 5.85185V8.51852H15.9235V9.25926H5.97814C3.78107 9.25926 2 10.9838 2 13.1111L2 18.8889C2 21.0162 3.78107 22.7407 5.97814 22.7407H8.27322V19.4815C8.27322 17.3542 10.0543 15.6296 12.2514 15.6296H19.5956C21.4547 15.6296 22.9617 14.1704 22.9617 12.3704V5.85185C22.9617 3.72453 21.1807 2 18.9836 2H13.0164ZM12.0984 6.74074C12.8589 6.74074 13.4754 6.14378 13.4754 5.40741C13.4754 4.67103 12.8589 4.07407 12.0984 4.07407C11.3378 4.07407 10.7213 4.67103 10.7213 5.40741C10.7213 6.14378 11.3378 6.74074 12.0984 6.74074Z" fill="url(#paint0_linear_87_8204)"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M18.9834 30C21.1805 30 22.9616 28.2755 22.9616 26.1482V23.4815L16.0763 23.4815L16.0763 22.7408L26.0217 22.7408C28.2188 22.7408 29.9998 21.0162 29.9998 18.8889V13.1111C29.9998 10.9838 28.2188 9.25928 26.0217 9.25928L23.7266 9.25928V12.5185C23.7266 14.6459 21.9455 16.3704 19.7485 16.3704L12.4042 16.3704C10.5451 16.3704 9.03809 17.8296 9.03809 19.6296L9.03809 26.1482C9.03809 28.2755 10.8192 30 13.0162 30H18.9834ZM19.9015 25.2593C19.1409 25.2593 18.5244 25.8562 18.5244 26.5926C18.5244 27.329 19.1409 27.9259 19.9015 27.9259C20.662 27.9259 21.2785 27.329 21.2785 26.5926C21.2785 25.8562 20.662 25.2593 19.9015 25.2593Z" fill="url(#paint1_linear_87_8204)"></path> <defs> <linearGradient id="paint0_linear_87_8204" x1="12.4809" y1="2" x2="12.4809" y2="22.7407" gradientUnits="userSpaceOnUse"> <stop stop-color="#327EBD"></stop> <stop offset="1" stop-color="#1565A7"></stop> </linearGradient> <linearGradient id="paint1_linear_87_8204" x1="19.519" y1="9.25928" x2="19.519" y2="30" gradientUnits="userSpaceOnUse"> <stop stop-color="#FFDA4B"></stop> <stop offset="1" stop-color="#F9C600"></stop> </linearGradient> </defs> </g></svg>' 
             },
             html: {
                 color: '#E34F26',
@@ -1096,14 +1109,14 @@
 
              const currentSkillsConfig = [
                 // Inner Orbit
-                { id: 'python', orbitRadius: innerRadius, size: innerSize, speed: 1, iconType: 'python', phaseShift: 0, glowColor: 'cyan', label: 'Python' },
-                { id: 'html', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'html', phaseShift: (2 * Math.PI) / 3, glowColor: 'cyan', label: 'Power BI' },
-                { id: 'sql', orbitRadius: innerRadius, size: innerSize-5, speed: 1, iconType: 'sql', phaseShift: (4 * Math.PI) / 3, glowColor: 'cyan', label: 'SQL' },
+               { id: 'python', orbitRadius: innerRadius, size: innerSize, speed: 1.5, iconType: 'python', phaseShift: 0, glowColor: 'cyan', label: 'Python' },
+               { id: 'html', orbitRadius: innerRadius, size: innerSize, speed: 1.5, iconType: 'html', phaseShift: (2 * Math.PI) / 3, glowColor: 'cyan', label: 'Power BI' },
+               { id: 'sql', orbitRadius: innerRadius, size: innerSize, speed: 1.5, iconType: 'sql', phaseShift: (4 * Math.PI) / 3, glowColor: 'cyan', label: 'SQL' },
                 
                 // Outer Orbit
-                { id: 'pytorch', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'pytorch', phaseShift: 0, glowColor: 'purple', label: 'PyTorch' },
-                { id: 'sklearn', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'sklearn', phaseShift: (2 * Math.PI) / 3, glowColor: 'purple', label: 'Scikit Learn' },
-                { id: 'keras', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'keras', phaseShift: (4 * Math.PI) / 3, glowColor: 'purple', label: 'Keras' },
+               { id: 'pytorch', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'pytorch', phaseShift: 0, glowColor: 'purple', label: 'PyTorch' },
+               { id: 'sklearn', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'sklearn', phaseShift: (2 * Math.PI) / 3, glowColor: 'purple', label: 'Scikit Learn' },
+               { id: 'keras', orbitRadius: outerRadius, size: outerSize, speed: -0.6, iconType: 'keras', phaseShift: (4 * Math.PI) / 3, glowColor: 'purple', label: 'Keras' },
             ];
 
             // --- Render Paths ---
@@ -1152,7 +1165,7 @@
                 });
 
                 const tooltip = document.createElement('div');
-                tooltip.className = "tooltip absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900/95 backdrop-blur-sm rounded text-xs text-white whitespace-nowrap pointer-events-none opacity-0 transition-opacity duration-300 z-50";
+                tooltip.className = "tooltip absolute top-full left-1/2 -translate-x-1/2 translate-y-2 px-2 py-1 bg-gray-900/95 backdrop-blur-sm rounded text-xs text-white whitespace-nowrap pointer-events-none opacity-0 transition-all duration-300 z-[60] shadow-lg shadow-black/40";
                 tooltip.innerText = config.label;
                 inner.appendChild(tooltip);
 
