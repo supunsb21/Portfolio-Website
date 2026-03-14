@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typing Cursor */
+.typing-cursor::after {
+  content: "|";
+  animation: blink 1s step-start infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(to right, #3b82f6, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Orbiter */
+.skill-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: transform 0.1s linear;
+  will-change: transform;
+  transform: translate(-50%, -50%);
+}
+.skill-inner:hover {
+  transform: scale(1.25);
+  z-index: 50;
+}
+.skill-inner:hover .tooltip {
+  opacity: 1;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(1.05); }
+}
+
+#orbit-container {
+  width: min(420px, 92vw);
+  height: min(420px, 92vw);
+  min-width: 260px;
+  min-height: 260px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  #orbit-container {
+    width: 450px;
+    height: 450px;
+  }
+}
