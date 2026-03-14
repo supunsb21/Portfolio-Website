@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "Data Analyst with a BSc in Statistics & Computer Science. Specializing in statistical modeling, machine learning, and visualization.",
   icons: {
-    icon: "/images/user.png",
+    icon: "/images/user.ico",
   },
 };
 
