@@ -18,18 +18,22 @@ export const metadata: Metadata = {
   },
 };
 
+import { ThemeProvider } from "@/components/ThemeProvider";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased bg-dark text-slate-50 selection:bg-emerald-500 selection:text-white`}
+        className={`${inter.className} antialiased bg-slate-50 dark:bg-dark text-slate-900 dark:text-slate-50 selection:bg-emerald-500 selection:text-white transition-colors duration-300`}
       >
-        {children}
-        <Analytics />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -64,7 +64,7 @@ export default function Hero() {
             Turning Data into <br />
             <span ref={textRef} className="text-gradient typing-cursor" />
           </h1>
-          <p className="text-gray-400 text-base sm:text-lg mb-8 max-w-lg mx-auto md:mx-0">
+          <p className="text-slate-600 dark:text-gray-400 text-base sm:text-lg mb-8 max-w-lg mx-auto md:mx-0">
             Data Analyst with a BSc in Statistics &amp; Computer Science. I
             specialize in statistical modeling, machine learning, and
             visualization to drive business solutions.
@@ -72,19 +72,19 @@ export default function Hero() {
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             <a
               href="#projects"
-              className="px-8 py-3 bg-white text-darker font-bold rounded-full hover:bg-gray-200 transition-all transform hover:-translate-y-1 shadow-lg shadow-white/10"
+              className="px-8 py-3 bg-slate-900 dark:bg-white text-white dark:text-darker font-bold rounded-full hover:bg-slate-800 dark:hover:bg-gray-200 transition-all transform hover:-translate-y-1 shadow-lg shadow-black/5 dark:shadow-white/10"
             >
               View Work
             </a>
             <a
               href="#contact"
-              className="px-8 py-3 border border-slate-700 text-white font-medium rounded-full hover:bg-slate-800 transition-all"
+              className="px-8 py-3 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white font-medium rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
             >
               Contact Me
             </a>
           </div>
 
-          <div className="mt-12 flex items-center justify-center md:justify-start space-x-6 text-gray-400">
+          <div className="mt-12 flex items-center justify-center md:justify-start space-x-6 text-slate-500 dark:text-gray-400">
             <a
               href="https://lk.linkedin.com/in/supunsb"
               target="_blank"
@@ -117,7 +117,7 @@ export default function Hero() {
         <div className="w-full md:w-1/2 flex justify-center">
           <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-96 md:h-96 animate-float group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-[2.5rem] blur-2xl opacity-40 group-hover:opacity-75 transition duration-500" />
-            <div className="relative w-full h-full bg-card rounded-[0.8rem] border border-slate-700/50 flex items-center justify-center overflow-hidden shadow-2xl">
+            <div className="relative w-full h-full bg-white dark:bg-card rounded-[0.8rem] border border-slate-200 dark:border-slate-700/50 flex items-center justify-center overflow-hidden shadow-2xl">
               <Image
                 src="/images/pro-pic.png"
                 alt="Supun Bandara"
@@ -126,14 +126,14 @@ export default function Hero() {
                 priority
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-xl hidden md:block animate-bounce-slow">
+            <div className="absolute -bottom-6 -right-6 bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl hidden md:block animate-bounce-slow">
               <FaCode className="text-2xl text-gradient" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow text-gray-500">
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow text-slate-400 dark:text-gray-500">
         <FaChevronDown className="text-xl" />
       </div>
     </section>

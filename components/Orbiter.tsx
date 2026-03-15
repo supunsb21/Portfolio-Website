@@ -141,7 +141,7 @@ export default function Orbiter() {
       const iconData = ICONS[cfg.iconType];
       const inner = document.createElement("div");
       inner.className =
-        "skill-inner relative w-full h-full p-2 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-lg";
+        "skill-inner relative w-full h-full p-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-lg";
       inner.innerHTML = iconData.svg;
 
       inner.addEventListener("mouseenter", () => {
@@ -213,7 +213,7 @@ export default function Orbiter() {
     <div className="w-full flex items-center justify-center relative overflow-hidden py-10 md:py-0">
       <div id="orbit-container" ref={containerRef} className="relative flex items-center justify-center">
         {/* Center node */}
-        <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center z-10 relative shadow-2xl">
+        <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-gray-200 to-gray-400 dark:from-gray-700 dark:to-gray-900 rounded-full flex items-center justify-center z-10 relative shadow-2xl">
           <div className="absolute inset-0 rounded-full bg-cyan-500/30 blur-xl animate-pulse" />
           <div className="absolute inset-0 rounded-full bg-purple-500/20 blur-2xl animate-pulse" style={{ animationDelay: "1s" }} />
           <div className="relative z-10">

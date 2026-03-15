@@ -17,62 +17,62 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-darker relative overflow-hidden">
+    <section id="contact" className="py-20 bg-slate-50 dark:bg-darker text-slate-900 dark:text-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#39828b] to-transparent" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <Reveal>
-          <div className="bg-card rounded-2xl p-6 sm:p-8 md:p-12 border border-slate-800 shadow-2xl">
+          <div className="bg-white dark:bg-card rounded-2xl p-6 sm:p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-2xl">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
-              <p className="text-gray-400">
+              <p className="text-slate-600 dark:text-gray-400">
                 Available for data analysis and machine learning opportunities.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 text-center">
-              <div className="p-4 rounded-lg bg-dark border border-slate-700 flex flex-col items-center gap-2">
+              <div className="p-4 rounded-lg bg-slate-50 dark:bg-dark border border-slate-300 dark:border-slate-700 flex flex-col items-center gap-2">
                 <FaPhone className="text-primary text-xl" />
-                <p className="text-sm text-gray-300">+94 75 465 1034</p>
+                <p className="text-sm text-slate-700 dark:text-gray-300">+94 75 465 1034</p>
               </div>
-              <div className="p-4 rounded-lg bg-dark border border-slate-700 flex flex-col items-center gap-2">
+              <div className="p-4 rounded-lg bg-slate-50 dark:bg-dark border border-slate-300 dark:border-slate-700 flex flex-col items-center gap-2">
                 <FaEnvelope className="text-primary text-xl" />
-                <p className="text-sm text-gray-300 break-all">supunsb21@gmail.com</p>
+                <p className="text-sm text-slate-700 dark:text-gray-300 break-all">supunsb21@gmail.com</p>
               </div>
-              <div className="p-4 rounded-lg bg-dark border border-slate-700 flex flex-col items-center gap-2">
+              <div className="p-4 rounded-lg bg-slate-50 dark:bg-dark border border-slate-300 dark:border-slate-700 flex flex-col items-center gap-2">
                 <FaMapMarkerAlt className="text-primary text-xl" />
-                <p className="text-sm text-gray-300">Sri Jayawardenepura Kotte</p>
+                <p className="text-sm text-slate-700 dark:text-gray-300">Sri Jayawardenepura Kotte</p>
               </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                  <label className="block text-sm font-medium text-slate-600 dark:text-gray-400 mb-2">Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-dark border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full bg-slate-50 dark:bg-dark border border-slate-300 dark:border-slate-700 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                  <label className="block text-sm font-medium text-slate-600 dark:text-gray-400 mb-2">Email</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-dark border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full bg-slate-50 dark:bg-dark border border-slate-300 dark:border-slate-700 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                <label className="block text-sm font-medium text-slate-600 dark:text-gray-400 mb-2">Message</label>
                 <textarea
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full bg-dark border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
+                  className="w-full bg-slate-50 dark:bg-dark border border-slate-300 dark:border-slate-700 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
                 />
               </div>
               <button
@@ -83,14 +83,14 @@ export default function Contact() {
               </button>
             </form>
 
-            <div className="mt-10 pt-6 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm gap-4">
+            <div className="mt-10 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-col md:flex-row justify-between items-center text-slate-600 dark:text-gray-400 text-sm gap-4">
               <p>&copy; 2025 Supun Bandara. All rights reserved.</p>
               <div className="flex space-x-6">
                 <a
                   href="https://lk.linkedin.com/in/supunsb"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   LinkedIn
                 </a>

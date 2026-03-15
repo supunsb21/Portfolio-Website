@@ -55,7 +55,7 @@ const projects: Project[] = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 bg-darker">
+    <section id="projects" className="py-20 bg-slate-50 dark:bg-darker text-slate-900 dark:text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="text-center mb-16">
@@ -67,19 +67,19 @@ export default function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, i) => (
             <Reveal key={project.title} delay={i * 100}>
-              <div className="group relative rounded-xl overflow-hidden bg-card border border-slate-800 h-full flex flex-col">
-                <div className="w-full h-56 flex items-center justify-center bg-slate-800/50 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
+              <div className="group relative rounded-xl overflow-hidden bg-white dark:bg-card border border-slate-200 dark:border-slate-800 h-full flex flex-col">
+                <div className="w-full h-56 flex items-center justify-center bg-slate-100 dark:bg-slate-800/50 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
                   {project.icon}
                 </div>
                 <div className="p-6 flex flex-col flex-1">
                   <span className={`${project.categoryColor} text-xs font-bold uppercase tracking-wider mb-2 block`}>
                     {project.category}
                   </span>
-                  <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                  <p className="text-gray-400 text-sm mb-4 flex-1">{project.description}</p>
+                  <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">{project.title}</h3>
+                  <p className="text-slate-600 dark:text-gray-400 text-sm mb-4 flex-1">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tags.map((tag) => (
-                      <span key={tag.label} className={`px-2 py-1 bg-slate-700/50 rounded text-xs ${tag.color}`}>
+                      <span key={tag.label} className={`px-2 py-1 bg-slate-100 dark:bg-slate-700/50 rounded text-xs ${tag.color}`}>
                         {tag.label}
                       </span>
                     ))}
