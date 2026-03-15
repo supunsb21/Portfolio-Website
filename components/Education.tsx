@@ -1,10 +1,23 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import { BubbleBackground } from '@/components/animate-ui/components/backgrounds/bubble';
 
 export default function Education() {
   return (
-    <section id="education" className="py-20 bg-slate-50 dark:bg-darker text-slate-900 dark:text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="education" className="relative overflow-hidden">
+      <BubbleBackground
+        interactive={false}
+        className="py-20 bg-slate-50 dark:bg-darker text-slate-900 dark:text-white w-full"
+        colors={{
+          first: "59,130,246",
+          second: "16,185,129",
+          third: "59,130,246",
+          fourth: "16,185,129",
+          fifth: "59,130,246",
+          sixth: "16,185,129",
+        }}
+      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 relative">
         <Reveal>
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Education</h2>
@@ -88,6 +101,7 @@ export default function Education() {
           </div>
         </div>
       </div>
+      </BubbleBackground>
     </section>
   );
 }

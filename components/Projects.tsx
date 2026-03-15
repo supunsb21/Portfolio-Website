@@ -1,6 +1,7 @@
 import Reveal from "@/components/Reveal";
 import { FaChartArea, FaGasPump, FaUsersCog } from "react-icons/fa";
 import { ReactNode } from "react";
+import { BubbleBackground } from '@/components/animate-ui/components/backgrounds/bubble';
 
 interface Project {
   icon: ReactNode;
@@ -20,43 +21,55 @@ const projects: Project[] = [
     description:
       "Analyzed socio-economic factors influencing homicide rates in Sri Lanka (1994–2023). Used OLS, Elastic Net, and XGBoost models.",
     tags: [
-      { label: "ML", color: "text-blue-300" },
-      { label: "Python", color: "text-blue-300" },
-      { label: "XGBoost", color: "text-blue-300" },
+      { label: "ML", color: "text-blue-600 dark:text-blue-300" },
+      { label: "Python", color: "text-blue-600 dark:text-blue-300" },
+      { label: "XGBoost", color: "text-blue-600 dark:text-blue-300" },
     ],
   },
   {
     icon: <FaGasPump className="text-6xl text-slate-600" />,
     category: "Statistical Modeling",
-    categoryColor: "text-emerald-400",
+    categoryColor: "text-emerald-600 dark:text-emerald-400",
     title: "Fuel Consumption Analysis",
     description:
       "Used R regression models to analyze factors impacting automotive fuel usage. Identified critical variables to improve fuel efficiency.",
     tags: [
-      { label: "R Language", color: "text-emerald-300" },
-      { label: "Regression", color: "text-emerald-300" },
-      { label: "EDA", color: "text-emerald-300" },
+      { label: "R Language", color: "text-emerald-600 dark:text-emerald-300" },
+      { label: "Regression", color: "text-emerald-600 dark:text-emerald-300" },
+      { label: "EDA", color: "text-emerald-600 dark:text-emerald-300" },
     ],
   },
   {
     icon: <FaUsersCog className="text-6xl text-slate-600" />,
     category: "Business Intelligence",
-    categoryColor: "text-purple-400",
+    categoryColor: "text-purple-600 dark:text-purple-400",
     title: "CSI Score Forecasting",
     description:
       "Forecasting future customer complaints and analyzing Customer Satisfaction Index (CSI) scores to enhance decision-making.",
     tags: [
-      { label: "Power BI", color: "text-purple-300" },
-      { label: "Time Series", color: "text-purple-300" },
-      { label: "Streamlit", color: "text-purple-300" },
+      { label: "Power BI", color: "text-purple-600 dark:text-purple-300" },
+      { label: "Time Series", color: "text-purple-600 dark:text-purple-300" },
+      { label: "Streamlit", color: "text-purple-600 dark:text-purple-300" },
     ],
   },
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 bg-slate-50 dark:bg-darker text-slate-900 dark:text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="relative overflow-hidden">
+      <BubbleBackground
+        interactive={false}
+        className="py-20 bg-slate-50 dark:bg-darker text-slate-900 dark:text-white w-full"
+        colors={{
+          first: "168,85,247",
+          second: "59,130,246",
+          third: "168,85,247",
+          fourth: "59,130,246",
+          fifth: "168,85,247",
+          sixth: "59,130,246",
+        }}
+      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 relative">
         <Reveal>
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
@@ -90,6 +103,7 @@ export default function Projects() {
           ))}
         </div>
       </div>
+      </BubbleBackground>
     </section>
   );
 }
