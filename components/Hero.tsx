@@ -71,10 +71,12 @@ export default function Hero() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             <a
-              href="#projects"
+              href="/docs/Supun%20Bandara%20Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-3 bg-slate-900 dark:bg-white text-white dark:text-darker font-bold rounded-full hover:bg-slate-800 dark:hover:bg-gray-200 transition-all transform hover:-translate-y-1 shadow-lg shadow-black/5 dark:shadow-white/10"
             >
-              View Work
+              Get Resume
             </a>
             <a
               href="#contact"
