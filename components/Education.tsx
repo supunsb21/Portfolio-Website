@@ -26,7 +26,7 @@ export default function Education() {
                         alt="University of Kelaniya"
                         width={80}
                         height={80}
-                        className="object-contain"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                   </div>
@@ -59,7 +59,7 @@ export default function Education() {
                         alt="Kegalu Vidyalaya"
                         width={80}
                         height={80}
-                        className="object-contain"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                   </div>
